@@ -1,0 +1,22 @@
+{
+	"name": "shared",
+	"author": "FLighter",
+	"license": "CC BY-NC-ND 4.0",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"types": "tsc --emitDeclarationOnly",
+		"build": "pnpm types && tsx esbuild.config.ts"
+	},
+	"devDependencies": {
+		"esbuild": "^0.25.2",
+		"tsx": "^4.19.3",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"joi": "^17.13.3"
+	}
+}
