@@ -17,6 +17,7 @@
 		"typescript": "^5.8.3"
 	},
 	"dependencies": {
-		"joi": "^17.13.3"
+		"@shared/all": "link:../../../shared/shared-all",
+		"zod": "^3.25.23"
 	}
 }

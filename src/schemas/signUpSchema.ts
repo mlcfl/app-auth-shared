@@ -1,31 +1,20 @@
-import Joi from "joi";
+import { z } from "zod";
+import type { ApiSchema } from "@shared/all";
+import { loginField, passwordField } from "./fields";
 
-/**
- * Request
- */
-export type SignUpReqSchema = {
-	rules: boolean;
-	cookie: boolean;
-	personal: boolean;
-};
-
-export const signUpReqSchema = {
-	body: Joi.object({
-		rules: Joi.bool().equal(true).required(),
-		cookie: Joi.bool().equal(true).required(),
-		personal: Joi.bool().equal(true).required(),
+export const signUpSchema = {
+	req: {
+		body: z.object({
+			rules: z.literal(true),
+			cookie: z.literal(true),
+			personal: z.literal(true),
+		}),
+	},
+	res: z.object({
+		login: loginField,
+		password: passwordField,
 	}),
-};
+} satisfies ApiSchema;
 
-/**
- * Response
- */
-export type SignUpResSchema = {
-	login: string;
-	password: string;
-};
-
-export const signUpResSchema = Joi.object({
-	login: Joi.string().required(),
-	password: Joi.string().required(),
-});
+export type SignUpReqBodySchema = z.infer<typeof signUpSchema.req.body>;
+export type SignUpResSchema = z.infer<typeof signUpSchema.res>;

@@ -1,17 +1,14 @@
-import Joi from "joi";
+import { z } from "zod";
+import type { ApiSchema } from "@shared/all";
+import { loginField } from "./fields";
 
-/**
- * Request
- */
-export type RestoreReqSchema = {
-	login: string;
-};
+export const restoreSchema = {
+	req: {
+		body: z.object({
+			login: loginField,
+		}),
+	},
+	res: null,
+} satisfies ApiSchema;
 
-export const restoreReqSchema = {
-	body: Joi.object({
-		login: Joi.string()
-			.length(16)
-			.pattern(/^[0-9]{16}$/)
-			.required(),
-	}),
-};
+export type RestoreReqBodySchema = z.infer<typeof restoreSchema.req.body>;

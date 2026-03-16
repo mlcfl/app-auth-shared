@@ -1,22 +1,15 @@
-import Joi from "joi";
+import { z } from "zod";
+import type { ApiSchema } from "@shared/all";
+import { loginField, passwordField } from "./fields";
 
-/**
- * Request
- */
-export type SignInReqSchema = {
-	login: string;
-	password: string;
-};
+export const signInSchema = {
+	req: {
+		body: z.object({
+			login: loginField,
+			password: passwordField,
+		}),
+	},
+	res: null,
+} satisfies ApiSchema;
 
-export const signInReqSchema = {
-	body: Joi.object({
-		login: Joi.string()
-			.length(16)
-			.pattern(/^[0-9]{16}$/)
-			.required()
-			.messages({
-				"string.empty": "Login cannot be empty",
-			}),
-		password: Joi.string().min(8).max(1024).required(),
-	}),
-};
+export type SignInReqBodySchema = z.infer<typeof signInSchema.req.body>;
